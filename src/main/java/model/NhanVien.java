@@ -6,14 +6,19 @@
 package model;
 
 import java.util.Date;
-
+import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author ANHBANG PC's
  */
-public class NhanVien {
+public abstract class NhanVien implements NhapXuat{
+   
     private int maNV;
     private String hoTenNV;
     private Date ngaySinh;
@@ -22,7 +27,7 @@ public class NhanVien {
     private BoPhan nvCuaBP;
     public NhanVien(){
     }
-    
+   
     public NhanVien(int manv, String hotennv, Date ngaysinh, String gioitinh, String diachi , BoPhan nvcuabp ){
             this.maNV = manv;
             this.hoTenNV = hotennv;
@@ -91,7 +96,42 @@ public class NhanVien {
     }
     
     
-    
+    // ----------------------------------------------------------
+   
+ 
+   
+    @Override
+    public void nhapThongTin(Scanner sc){
+        
+        
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.println("============");
+            System.out.println("Ma nhan vien: ");
+            this.setMaNV(sc.nextInt());
+            System.out.println("Ho ten nhan vien: ");
+            sc.nextLine();
+            this.setHoTenNV(sc.nextLine());
+            System.out.println("Ngay sinh: ");
+            try {
+                this.setNgaySinh(sdf.parse(sc.nextLine()));
+            } catch (ParseException ex) {
+                Logger.getLogger(NhanVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Gioi Tinh: ");
+            this.setGioiTinh(sc.nextLine());
+            System.out.println("Dia chi: ");
+            this.setDiaChi(sc.nextLine());
+            
+    }
+   
+    public void hienThiThongTin(Scanner sc) throws ParseException {
+            System.out.println("Ma nhan vien:" + this.getMaNV());
+            System.out.println("Ho ten nhan vien: " + this.getHoTenNV());
+            System.out.println("Ngay sinh: " + this.getNgaySinh());
+            System.out.println("Gioi Tinh: " + this.getGioiTinh());
+            System.out.println("Dia chi: "+this.getDiaChi());
+            System.out.println("Bo phan: " +this.nvCuaBP);
+    }
     
     
 }

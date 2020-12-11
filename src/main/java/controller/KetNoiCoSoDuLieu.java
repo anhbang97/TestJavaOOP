@@ -26,8 +26,47 @@ public class KetNoiCoSoDuLieu {
       // Cấu trúc liên kết kết nối:    jdbc:mysql://localhost:3306/dbquanlycoffee?zeroDateTimeBehavior=CONVERT_TO_NULL     
       public static final String duongDanKetNoi = "jdbc:mysql://"+tenMayChu+":3306/"+tenCoSoDuLieu;
       
+      @SuppressWarnings("FieldMayBeFinal")
+      private static  KetNoiCoSoDuLieu instance = new KetNoiCoSoDuLieu();
+       private KetNoiCoSoDuLieu() {
+       }
+
+    public static KetNoiCoSoDuLieu getInstance() {
+        return instance;
+    }
+
+    
+      public Connection getKetNoi(){
+        try{
+        Class.forName("com.mysql.jdbc.Driver");
+        String unicode="useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8";
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/dbquanlycoffee?"+unicode, "root", "123456");
+        }catch(ClassNotFoundException | SQLException ex){
+        System.out.println(ex.getMessage());
+        System.out.println("Khong the ket noi!");
+        throw new RuntimeException(ex);
+        }
+}
+    
+    
       
-       public Connection getKetNoi() throws ClassNotFoundException, SQLException {
+
+        
+        
+        
+     
+      
+      
+}
+
+
+
+
+
+
+
+/*
+        public Connection getKetNoi() throws ClassNotFoundException, SQLException {
               Connection ketNoi = null;
         Statement thucThi = null;
            try {
@@ -40,8 +79,8 @@ public class KetNoiCoSoDuLieu {
         ketNoi = DriverManager.getConnection(duongDanKetNoi,tenNguoiDung,matKhau);
          
         System.out.println("\nKet noi thanh cong !");
-        
-       /*
+      
+     
         System.out.println("\nTao bang trong co so du lieu da chon ...");
         // Đối tượng gọi thực thi các câu lệnh truy vấn dữ liệu
          thucThi = ketNoi.createStatement();
@@ -71,10 +110,12 @@ public class KetNoiCoSoDuLieu {
      thucThi.executeUpdate(sqlBangNhanVien);
      
         System.out.println("\nDa tao bang thanh cong !");
-        
-        */
       
-        } catch (SQLException sqle) {
+        
+        
+      
+       
+       } catch (SQLException sqle) {
                sqle.printStackTrace();
         }catch(Exception ex){
                   ex.printStackTrace();
@@ -97,8 +138,5 @@ public class KetNoiCoSoDuLieu {
        }
 
 
-        
-     
-      
-      
-}
+
+*/
